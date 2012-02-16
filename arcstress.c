@@ -285,9 +285,15 @@ main(int argc, char *argv[])
 			filesz = atoi(optarg);
 			break;
 		case 'w':
-			if (strcasecmp(optarg, "rand") == 0 ||
+			if (strncasecmp(optarg, "rand", 4) == 0 ||
 			    strcasecmp(optarg, "random") == 0)
 				workload = AS_WORKLOAD_RANDOM;
+			else if (strncasecmp(optarg, "seq", 3) == 0 ||
+			    strcasecmp(optarg, "sequential") == 0)
+				workload = AS_WORKLOAD_SEQUENTIAL;
+			else
+				fprintf(stderr,
+				    "Unrecognized workload: '%s'\n", optarg);
 			break;
 		default:
 			fprintf(stderr,
